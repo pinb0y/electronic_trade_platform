@@ -1,5 +1,5 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
-from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 
 from electronic_trade.models import Supplier
@@ -9,8 +9,8 @@ from electronic_trade.serializers import SupplierSerializer, DetailSupplierSeria
 
 class SupplierViewSet(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
-    filter_backends = (SearchFilter,)
-    search_fields = ('contacts__country',)
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('contacts__country',)
     permission_classes = (ActiveUserPermission,)
 
     def update(self, request, *args, **kwargs):
