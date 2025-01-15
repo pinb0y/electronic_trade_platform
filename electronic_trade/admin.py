@@ -37,7 +37,7 @@ class ContactsInline(admin.StackedInline):
         'street',
         'street_number',
     )
-    extra = 1
+    extra = 0
 
 
 @admin.action(description="Обнулить задолженность")
@@ -52,7 +52,9 @@ class SupplierModelAdmin(admin.ModelAdmin):
         'supplier_type',
         'supplier_change',
         'debt',
+        'hierarchy',
     )
+
 
     @admin.display(
         description='Поставщик родитель'
@@ -71,3 +73,4 @@ class SupplierModelAdmin(admin.ModelAdmin):
     list_filter = (ContactsCityFilter,)
     actions = (clear_debt,)
     inlines = (ContactsInline,)
+    readonly_fields = ('hierarchy',)

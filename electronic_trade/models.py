@@ -47,6 +47,25 @@ class Supplier(models.Model):
         auto_now=True
     )
 
+    @property
+    def hierarchy(self):
+
+        attr_name = '__h_level'
+        if hasattr(self, attr_name):
+            return getattr(self, attr_name, int | None)
+
+        result = 0
+        chain = self
+        while chain and chain.supplier_type != self.SupplierType.FACTORY:
+            result += 1
+            chain = chain.supplier
+
+
+        setattr(self, attr_name, result)
+        return result
+
+    hierarchy.fget.short_description = "Уровень иерархии"
+
     def __str__(self):
         return self.name
 
@@ -89,7 +108,7 @@ class Product(models.Model):
 
 
 class Contact(models.Model):
-    supplier = models.OneToOneField(
+    supplier = models.ForeignKey(
         verbose_name='Поставщик',
         to='Supplier',
         on_delete=models.CASCADE,
