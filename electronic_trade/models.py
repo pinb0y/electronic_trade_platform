@@ -33,6 +33,7 @@ class Supplier(models.Model):
         verbose_name='Сумма долга с копейками',
         decimal_places=2,
         max_digits=12,
+        default=0,
         help_text='Укажите сумму долга с копейками'
     )
 
@@ -47,7 +48,7 @@ class Supplier(models.Model):
     )
 
     def __str__(self):
-        return f'{self.name} - {self.SupplierType}'
+        return self.name
 
     class Meta:
         verbose_name = 'Поставщик'
@@ -60,8 +61,6 @@ class Product(models.Model):
         to='Supplier',
         related_name='products',
         help_text='Укажите поставщика',
-
-
     )
 
     name = models.CharField(
