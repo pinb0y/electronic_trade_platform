@@ -55,7 +55,6 @@ class SupplierModelAdmin(admin.ModelAdmin):
         'hierarchy',
     )
 
-
     @admin.display(
         description='Поставщик родитель'
     )
@@ -64,7 +63,7 @@ class SupplierModelAdmin(admin.ModelAdmin):
             return '-'
         edit_url = reverse(
             f"admin:{obj._meta.app_label}_{obj._meta.model_name}_change",
-            args=(obj.supplier.pk,),
+            args=(obj.supplier.pk,)
         )
         return mark_safe(
             f'<a class="grp-button" href="{edit_url}" target="blank">{obj.supplier.name}</a>'

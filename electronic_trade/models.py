@@ -60,7 +60,6 @@ class Supplier(models.Model):
             result += 1
             chain = chain.supplier
 
-
         setattr(self, attr_name, result)
         return result
 
